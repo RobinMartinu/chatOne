@@ -6,12 +6,15 @@
 
     <script src = "zkouskaStranky.js"></script>
 </head>
-<body onload = "loadNameDay()">
-<span style = "margin-top: 5em; margin-left: 5em"> <img src = "lily.jpg"> </span>
-<div >
-    <span id = "svatek"></span>
-    <br><br>
-    <span id = "svatek2"></span>
+<body onload = "loadPage()">
+<span style = "margin-top: 5em; margin-left: 5em"> <img src = "lily.jpg" height = 460px  width = 380px > </span>
+<div style = "margin-left: 5.5em; margin-top: 18px;" >
+
+    <input type = "date" id = "date" onchange="loadNameDay()">
+
+    <span> Tento den slavi svatek: </span> <span id = "svatek"></span>
+   <br>
+    <br>
 </div>
 
 </body>

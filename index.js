@@ -2,6 +2,8 @@ const http = require('http');
 
 const fs = require('fs');
 
+const url = require('url');
+
 const SVATKY = new Array();
 SVATKY[1] = [ "", 'Nový rok', 'Karina', 'Radmila', 'Diana', 'Dalimil', 'Tři králové', 'Vilma', 'Čestmír', 'Vladan', 'Břetislav', 'Bohdana', 'Pravoslav', 'Edita', 'Radovan', 'Alice', 'Ctirad', 'Drahoslav', 'Vladislav', 'Doubravka', 'Ilona', 'Běla', 'Slavomír', 'Zdeněk', 'Milena', 'Miloš', 'Zora', 'Ingrid', 'Otýlie', 'Zdislava', 'Robin', 'Marika'];
 SVATKY[2] = [ "", 'Hynek', 'Nela a Hromnice', 'Blažej', 'Jarmila', 'Dobromila', 'Vanda', 'Veronika', 'Milada', 'Apolena', 'Mojmír', 'Božena', 'Slavěna', 'Věnceslav', 'Valentýn', 'Jiřina', 'Ljuba', 'Miloslava', 'Gizela', 'Patrik', 'Oldřich', 'Lenka', 'Petr', 'Svatopluk', 'Matěj', 'Liliana', 'Dorota', 'Alexandr', 'Lumír', 'Horymír'];
@@ -46,20 +48,21 @@ function processStaticFiles (res, fileName){
 }
 
 http.createServer((req, res) => {
-    if (req.url == "/") {
+    let q = url.parse(req.url, true);
+    if (q.pathname == "/") {
         citac++; //dtto citac=citac+1
         processStaticFiles(res, "/index.html");
         return;
     }
-    if (req.url.length - req.url.lastIndexOf(".") < 6){
+    if (q.pathname.length - q.pathname.lastIndexOf(".") < 6){
         processStaticFiles(res, req.url);
         return;
     }
 
-    if (req.url == "/jinastranka") {
+    if (q.pathname == "/jinastranka") {
         res.writeHead(200, {"Content-type": "text/html"});
         res.end("<html lang='cs'><head><meta charset='UTF8'></head><body>blablabla</body></html>");
-    } else if (req.url == "/jsondemo") {
+    } else if (q.pathname == "/jsondemo") {
         res.writeHead(200, {"Content-type": "application/json"});
         let obj = {};
         obj.jmeno = "Bob";
@@ -68,7 +71,7 @@ http.createServer((req, res) => {
         res.end(JSON.stringify(obj));
 
 
-    } else if (req.url == "/jsoncitac") {
+    } else if (q.pathname == "/jsoncitac") {
         res.writeHead(200, {"Content-type": "application/json"});
         let obj = {};
         obj.pocetVolani = citac;
@@ -77,7 +80,7 @@ http.createServer((req, res) => {
     }
 
 
-    else if (req.url == "/den") {
+    else if (q.pathname == "/den") {
         res.writeHead(200, {"Content-type": "application/json", "Access-Control-Allow-Origin":"*"});
         let d = new Date();
         let obj = {};
@@ -86,16 +89,25 @@ http.createServer((req, res) => {
         obj.datumCesky = d.getDate() + "." + d.getMonth();
         res.end(JSON.stringify(obj));
 
-    } else if (req.url == "/svatek") {
+    } else if (q.pathname == "/svatek") {
         res.writeHead(200, {"Content-type": "application/json", "Access-Control-Allow-Origin":"*"});
-        let d = new Date();
         let obj = {};
-        obj.mesic = d.getMonth()+1;
-        obj.den = d.getDate();
-        obj.svatek = SVATKY[obj.mesic][obj.den];
-        obj.hlaska = "Dnes ma svatek: " + obj.svatek;
-        res.end(JSON.stringify(obj));
 
+        if(q.query["m"] && q.query["d"]){
+
+            let d = q.query["d"];
+            let m = q.query["m"];
+            obj.datum = d + ". " + m + ". ";
+            obj.svatek = SVATKY[m][d];
+        } else {
+            let d = new Date();
+            obj.mesic = d.getMonth() + 1;
+            obj.den = d.getDate();
+            obj.svatek = SVATKY[obj.mesic][obj.den];
+            obj.hlaska = "Dnes ma svatek: " + obj.svatek;
+
+        }
+        res.end(JSON.stringify(obj));
     }
 
     else {
