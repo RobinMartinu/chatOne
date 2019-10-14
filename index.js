@@ -21,6 +21,8 @@ SVATKY[12] = [ "",'Iva', 'Blanka', 'Svatoslav', 'Barbora', 'Jitka', 'Mikuláš',
 
 
 let citac = 0;
+let msgs = new Array();
+
 
 function processStaticFiles (res, fileName){
     fileName = fileName.substr(1);
@@ -109,6 +111,26 @@ http.createServer((req, res) => {
         }
         res.end(JSON.stringify(obj));
     }
+    else if (q.pathname == "/chat/listmsgs") {
+        res.writeHead(200, {"Content-type": "application/json", "Access-Control-Allow-Origin":"*"});
+
+        let obj = {};
+        obj.messages = msgs;
+        res.end(JSON.stringify(obj));
+
+    }
+
+    else if (q.pathname == "/chat/addmsg") {
+        res.writeHead(200, {"Content-type": "application/json", "Access-Control-Allow-Origin":"*"});
+
+        let obj = {};
+        obj.text = q.query["msg"]; // TO DO parameter msg
+        msgs.push(obj);
+        res.end(JSON.stringify(obj));
+
+    }
+
+
 
     else {
         res.writeHead(200, {"Content-type": "text/html"});
