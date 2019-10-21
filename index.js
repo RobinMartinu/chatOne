@@ -4,6 +4,10 @@ const fs = require('fs');
 
 const url = require('url');
 
+
+
+const apiDenVTydnu = require('./api-denvtydnu').apiDenVTydnu;
+
 const SVATKY = new Array();
 SVATKY[1] = [ "", 'Nový rok', 'Karina', 'Radmila', 'Diana', 'Dalimil', 'Tři králové', 'Vilma', 'Čestmír', 'Vladan', 'Břetislav', 'Bohdana', 'Pravoslav', 'Edita', 'Radovan', 'Alice', 'Ctirad', 'Drahoslav', 'Vladislav', 'Doubravka', 'Ilona', 'Běla', 'Slavomír', 'Zdeněk', 'Milena', 'Miloš', 'Zora', 'Ingrid', 'Otýlie', 'Zdislava', 'Robin', 'Marika'];
 SVATKY[2] = [ "", 'Hynek', 'Nela a Hromnice', 'Blažej', 'Jarmila', 'Dobromila', 'Vanda', 'Veronika', 'Milada', 'Apolena', 'Mojmír', 'Božena', 'Slavěna', 'Věnceslav', 'Valentýn', 'Jiřina', 'Ljuba', 'Miloslava', 'Gizela', 'Patrik', 'Oldřich', 'Lenka', 'Petr', 'Svatopluk', 'Matěj', 'Liliana', 'Dorota', 'Alexandr', 'Lumír', 'Horymír'];
@@ -83,13 +87,7 @@ http.createServer((req, res) => {
 
 
     else if (q.pathname == "/den") {
-        res.writeHead(200, {"Content-type": "application/json", "Access-Control-Allow-Origin":"*"});
-        let d = new Date();
-        let obj = {};
-        obj.sysDatum = d;
-        obj.denCislo = d.getDay();
-        obj.datumCesky = d.getDate() + "." + d.getMonth();
-        res.end(JSON.stringify(obj));
+        apiDenVTydnu(req, res);
 
     } else if (q.pathname == "/svatek") {
         res.writeHead(200, {"Content-type": "application/json", "Access-Control-Allow-Origin":"*"});
