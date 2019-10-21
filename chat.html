@@ -8,14 +8,14 @@
 
     </script>
 </head>
-<body>
+<body onload = fetchFrom("http://localhost:8888/chat/listmsgs")>
 <span> Do me</span>
 <div style = "margin-left: 6em; margin-top: 4em;">
     <div style = "margin-left: 0em; margin-bottom: 2em;" >
-        <button style = "height: 34px; width: 120px;" id = "btnAddMsg">Poslat Zpravu</button>
-        <button style = "margin-left: 24px; height: 34px; width: 120px;" id = "btnListMsg">Zobrazit Zpravy</button>
+        <button style = "height: 34px; width: 120px;" id = "btnAddMsg">Poslat Zprávu</button>
+        <button style = "margin-left: 24px; height: 34px; width: 120px;" id = "btnListMsg" onClick = "btnUpdateMsg()" >Zobrazit Zprávy</button>
     </div>
-    <textarea cols = "35" rows = "45" style = "border: none; resize: none; margin-left: 0em "></textarea>
+    <textarea id = "messages" cols = "35" rows = "45" style = "border: none; resize: none; margin-left: 0em "></textarea>
 </div>
 </body>
 </html>

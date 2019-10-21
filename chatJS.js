@@ -1,19 +1,19 @@
-url = "http://localhost:8888/svatek";
+listMsgs = "http://localhost:8888/chat/listmsgs";
+
+
+
 function fetchFrom(url){
-    fetch(url.then(function(response) {
-        response.text().then(function(text) {
+
+    return fetch(url).then(function(response) {
+        return response.text().then(function(text) {
             let obj = JSON.parse(text);
+            let msgs = obj.messages[0].text  + '\n' + obj.messages[1].text;
+            document.getElementById("messages").innerHTML = msgs;
 
         });
     });
 }
 
-function loadNameDay(url){
-    let date = document.getElementById("date").valueAsDate;
-    fetch(url.then(function(response) {
-        response.text().then(function(text) {
-            let obj = JSON.parse(text);
-            document.getElementById("svatek").innerHTML = obj.svatek;
-        });
-    });
+function btnUpdateMsg() {
+    document.getElementById("messages").innerHTML = JSON.stringify(fetchFrom(listMsgs));
 }
