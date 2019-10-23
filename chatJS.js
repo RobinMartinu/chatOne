@@ -22,11 +22,12 @@ function fetchFrom(url){
 
 function btnUpdateMsg() {
    fetchFrom(`${HOST}/listmsgs`);
+   // alert(`${HOST}`);
 }
 
 function btnSendMsg(){
     let msgContent = document.getElementById("newMsg").value;
-    let url = `${HOST}/addmsg` + "?msg=" + msgContent;
+    let url = `${HOST}` + "/addmsg?msg=" + msgContent;
     document.getElementById("newMsg").value = "";
     fetch(url).then();
 
