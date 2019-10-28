@@ -11,7 +11,7 @@ function fetchFrom(url){
             let msgs = "";
 
             for (let i = obj.messages.length - 1; i >= 0; i--){
-                msgs += obj.messages[i].text  + '\n'
+                msgs += '<b>' + obj.messages[i].user + '</b>' +": " + obj.messages[i].text  + '<br>';
             }
 
             document.getElementById("messages").innerHTML = msgs;
@@ -26,11 +26,14 @@ function btnUpdateMsg() {
 }
 
 function btnSendMsg(){
-    let msgContent = document.getElementById("newMsg").value;
-    let url = `${HOST}` + "/addmsg?msg=" + msgContent;
-    document.getElementById("newMsg").value = "";
-    fetch(url).then();
+    if(document.getElementById("newMsg").value != "") {
+        let user = document.getElementById("user").value;
+        let msgContent = document.getElementById("newMsg").value;
+        let url = `${HOST}` + "/addmsg?msg=" + msgContent + "&user=" + user;
+        document.getElementById("newMsg").value = "";
+        fetch(url).then();
 
-    fetchFrom(`${HOST}/listmsgs`);
+        fetchFrom(`${HOST}/listmsgs`);
+    }
 
 }

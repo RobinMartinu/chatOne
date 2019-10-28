@@ -9,18 +9,29 @@
     </script>
 </head>
 <body>
-<span> Do me</span>
-<div style = "margin-left: 6em; margin-top: 4em;">
-    <div style = "margin-bottom: 1em;">
+<div style = "width: 30em; height: 36em; margin-left: auto; margin-right:auto; margin-top: 2em; border: 1px solid lightskyblue;
+ border-radius: 10px;" >
+    <div style = "width:28em; height: 34em; margin:auto; align-items:center;">
+
+    <div style = "margin: 1em auto 1em 20%;">
+        <input id = "user" type = "text" placeholder="Your Nickname" style = "width:10em; text-align: center;
+         margin: auto auto 3px 2.5em; font-size: 18px">
         <input id = "newMsg" type = "text"  style = "width:19em; height: 2em; padding-left:1em;">
     </div>
 
-    <div style = "margin-bottom: 2em;" >
+    <div style = "margin: auto auto 2em 20%;" >
+
         <button style = "height: 34px; width: 120px;" id = "btnAddMsg" onClick = "btnSendMsg()" >Poslat Zprávu</button>
         <button style = "margin-left: 24px; height: 34px; width: 120px;" id = "btnListMsg" onClick = "btnUpdateMsg()" >Zobrazit Zprávy</button>
     </div>
 
-    <textarea id = "messages" cols = "35" rows = "45" style = "border: none; resize: none;"></textarea>
+   <!--?> <textarea id = "messages" cols = "35" rows = "25" disabled = "disabled" style = "border: none;
+     resize: none;  margin-left: 20%;"></textarea>
+     <-->
+        <div id = "messages"  style = "border: none; width: 20em; height: 25em;
+     resize: none;  margin-left: 20%;"></div>
+
+    </div>
 </div>
 </body>
 </html>

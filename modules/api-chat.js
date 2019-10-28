@@ -18,6 +18,7 @@ exports.apiChat = function(req, res){
         res.writeHead(200, {"Content-type": "application/json", "Access-Control-Allow-Origin":"*"});
 
         let obj = {};
+        obj.user = q.query["user"];
         obj.text = q.query["msg"]; // TO DO parameter msg
         msgs.push(obj);
         res.end(JSON.stringify(obj));
