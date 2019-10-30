@@ -1,6 +1,11 @@
 listMsgs = "http://localhost:8888/chat/listmsgs";
 addMsg = "http://localhost:8888/chat/addmsg";
-const HOST = window.location;
+// const HOST = window.location;
+// DOWNOAD NPM I NGROK
+// RUN BY
+    // NGROK HTTP <PORT>
+
+const HOST = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "");
 
 function fetchFrom(url){
 
@@ -21,19 +26,19 @@ function fetchFrom(url){
 }
 
 function btnUpdateMsg() {
-   fetchFrom(`${HOST}/listmsgs`);
-   // alert(`${HOST}`);
+   fetchFrom(`${HOST}/chat/listmsgs`);
+   alert(`${HOST}`);
 }
 
 function btnSendMsg(){
-    if(document.getElementById("newMsg").value != "") {
+    if(document.getElementById("newMsg").value !== "") {
         let user = document.getElementById("user").value;
         let msgContent = document.getElementById("newMsg").value;
-        let url = `${HOST}` + "/addmsg?msg=" + msgContent + "&user=" + user;
+        let url = `${HOST}` + "/chat/addmsg?msg=" + msgContent + "&user=" + user;
         document.getElementById("newMsg").value = "";
         fetch(url).then();
 
-        fetchFrom(`${HOST}/listmsgs`);
+        fetchFrom(`${HOST}/chat/listmsgs`);
     }
 
 }
