@@ -1,9 +1,17 @@
 listMsgs = "http://localhost:8888/chat/listmsgs";
 addMsg = "http://localhost:8888/chat/addmsg";
-// const HOST = window.location;
+
+
 // DOWNOAD NPM I NGROK
 // RUN BY
     // NGROK HTTP <PORT>
+// blocked by school firewall
+
+//-----------------------
+// DOWNOAD NPM I SERVEO
+// RUN BY
+// ssh -R 80:localhost:8888 serveo.net
+
 
 const HOST = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "");
 
