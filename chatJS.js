@@ -50,3 +50,7 @@ function btnSendMsg(){
     }
 
 }
+
+function timeUpdate(){
+    setInterval(btnUpdateMsg, 1000);
+}
